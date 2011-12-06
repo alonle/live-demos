@@ -1,29 +1,52 @@
 subprojects {
   apply plugin: "java"
-  
+}
+
+ivyRepoUrl = "file:///Users/${System.getProperty("user.name")}/Sites/ivyrepo"
+mavenRepoUrl = "file:///Users/${System.getProperty("user.name")}/Sites/mavenrepo"
+
+task deleteRepos(type: Delete) {
+  decription = 'Deletes the Ivy and Maven used in this demo.'
+  delete ivyRepoUrl, mavenRepoUrl
+}
+
+project("foo") {
+  group = "org.cachepolicy.foo"
   version = "1.0-${System.currentTimeMillis()}"
-  
   uploadArchives {
     repositories {
       ivy {
         name "repo"
-        url "file:///Users/${System.getProperty("user.name")}/Sites/ivyrepo"
+        url ivyRepoUrl
       }
     }
   }
 }
 
-project("foo") {
-  group = "org.cachepolicy.foo"
-}
-
 project("bar") {
+  apply plugin: 'maven'
   group = "org.cachepolicy.bar"
+  version = "1.0-SNAPSHOT"
+  uploadArchives {
+    repositories {
+      mavenDeployer {
+        repository(url: mavenRepoUrl)
+      }
+    }
+  }
 }
 
 project("zoo") {
   group = "org.cachepolicy.zoo"
   version = "1.0"
+  uploadArchives {
+    repositories {
+      ivy {
+        name "repo"
+        url ivyRepoUrl
+      }
+    }
+  }
   jar {
       manifest {
           timestamp: "" + System.currentTimeMillis()

@@ -8,16 +8,20 @@ repositories {
 }
 
 dependencies {
-  compile "org.cachepolicy.foo:foo:latest.integration", "org.cachepolicy.bar:bar:latest.integration"
+  compile "org.cachepolicy.foo:foo:latest.integration"
+  compile "org.cachepolicy.bar:bar:latest.integration"
+  compile("org.cachepolicy.zoo:zoo:1.0") {
+    changing = true
+  }
 }
 
 configurations.all {
-    resolutionStrategy.expireDynamicRevisionsAfter 0, java.util.concurrent.TimeUnit.SECONDS
-}
-configurations.all {
     resolutionStrategy {
-        cachePolicy = { module, ageMillis ->
-            ageMillis < (module.id.group == "org.cachepolicy.foo" ? 0 : 86400000)
-        } as org.gradle.api.internal.artifacts.configurations.dynamicversion.CachePolicy
+        cacheChangingModulesFor 1000, 'seconds'
+        cacheDynamicVersionsFor 24, 'hours'
     }
+}
+
+task show << {
+    configurations.compile.each { println it }
 }

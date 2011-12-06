@@ -2,14 +2,18 @@ apply plugin: "java"
 
 repositories {
   ivy {
-    name "remote"
+    name "ivy"
     url "http://localhost/~${System.getProperty("user.name")}/ivyrepo"
+  }
+  maven {
+    name "maven"
+    url "http://localhost/~${System.getProperty("user.name")}/mavenrepo"
   }
 }
 
 dependencies {
   compile "org.cachepolicy.foo:foo:latest.integration"
-  compile "org.cachepolicy.bar:bar:latest.integration"
+  compile "org.cachepolicy.bar:bar:1.0-SNAPSHOT"
   compile("org.cachepolicy.zoo:zoo:1.0") {
     changing = true
   }
@@ -17,8 +21,8 @@ dependencies {
 
 configurations.all {
     resolutionStrategy {
-        cacheChangingModulesFor 1000, 'seconds'
-        cacheDynamicVersionsFor 24, 'hours'
+        cacheChangingModulesFor 0, 'seconds'
+        cacheDynamicVersionsFor 0, 'hours'
     }
 }
 
