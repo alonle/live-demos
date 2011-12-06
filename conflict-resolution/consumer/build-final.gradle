@@ -1,0 +1,23 @@
+apply plugin: "java"
+
+repositories {
+  mavenRepo url: "file:///Users/${System.getProperty("user.name")}/Sites/mavenrepo"
+}
+
+configurations.all {
+  resolutionStrategy {
+    force 'org.conflictresolution:baz:1'
+    // failOnVersionConflict()
+  }
+}
+
+
+dependencies {
+  compile "org.conflictresolution.foo:foo:1.0", "org.conflictresolution.bar:bar:1.0"
+}
+
+task show << {
+    configurations.compile.each {
+      println it
+    }
+}

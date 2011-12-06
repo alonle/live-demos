@@ -1,0 +1,34 @@
+subprojects {
+  apply plugin: "java"
+  apply plugin: "maven"
+
+  version = "1.0"
+
+  repositories {
+    mavenRepo url: "file:///Users/${System.getProperty("user.name")}/Sites/mavenrepo"
+  }
+
+  uploadArchives {
+    repositories {
+      mavenDeployer {
+        repository(url: "file:///Users/${System.getProperty("user.name")}/Sites/mavenrepo")
+      }
+    }
+  }
+}
+
+project("foo") {
+  group = "org.conflictresolution.foo"
+
+  dependencies {
+    compile "org.conflictresolution:baz:1"
+  }
+}
+
+project("bar") {
+  group = "org.conflictresolution.bar"
+
+  dependencies {
+    compile "org.conflictresolution:baz:2"
+  }
+}

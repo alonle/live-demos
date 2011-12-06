@@ -1,0 +1,32 @@
+subprojects {
+  apply plugin: "java"
+  
+  version = "1.0-${System.currentTimeMillis()}"
+  
+  uploadArchives {
+    repositories {
+      ivy {
+        name "repo"
+        url "file:///Users/${System.getProperty("user.name")}/Sites/ivyrepo"
+      }
+    }
+  }
+}
+
+project("foo") {
+  group = "org.cachepolicy.foo"
+}
+
+project("bar") {
+  group = "org.cachepolicy.bar"
+}
+
+project("zoo") {
+  group = "org.cachepolicy.zoo"
+  version = "1.0"
+  jar {
+      manifest {
+          timestamp: "" + System.currentTimeMillis()
+      }
+  }
+}

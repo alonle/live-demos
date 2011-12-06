@@ -1,0 +1,27 @@
+apply plugin: "java"
+
+repositories {
+  ivy {
+    name "remote"
+    url "http://localhost/~${System.getProperty("user.name")}/ivyrepo"
+  }
+}
+
+dependencies {
+  compile "org.cachepolicy.foo:foo:latest.integration"
+  compile "org.cachepolicy.bar:bar:latest.integration"
+  compile("org.cachepolicy.zoo:zoo:1.0") {
+    changing = true
+  }
+}
+
+configurations.all {
+    resolutionStrategy {
+        cacheChangingModulesFor 1000, 'seconds'
+        cacheDynamicVersionsFor 24, 'hours'
+    }
+}
+
+task show << {
+    configurations.compile.each { println it }
+}

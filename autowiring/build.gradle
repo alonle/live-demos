@@ -1,0 +1,45 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile "junit:junit:4.9"
+}
+
+task testJar(type: Jar) {
+    archiveName = 'tests.jar'
+    from sourceSets.test.output
+}
+
+task analyzeTestJar(type: AnalyzeJar) {
+    jar = testJar
+}
+
+task copy(type:Copy) {
+    from testJar
+    into 'build/myJars'
+}
+
+class AnalyzeJar extends DefaultTask {
+    @InputFiles
+    Task jar
+
+    @TaskAction
+    def analyze() {
+        println "Size: ${jar.archivePath.size()}"
+        project.exec {
+            commandLine "unzip", "-t", jar.archivePath
+        }
+    }
+}
+
+
+
+
+
+
+
+
+

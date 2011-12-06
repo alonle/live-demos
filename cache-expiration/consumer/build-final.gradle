@@ -1,0 +1,23 @@
+apply plugin: "java"
+
+repositories {
+  ivy {
+    name "remote"
+    url "http://localhost/~${System.getProperty("user.name")}/ivyrepo"
+  }
+}
+
+dependencies {
+  compile "org.cachepolicy.foo:foo:latest.integration", "org.cachepolicy.bar:bar:latest.integration"
+}
+
+configurations.all {
+    resolutionStrategy.expireDynamicRevisionsAfter 0, java.util.concurrent.TimeUnit.SECONDS
+}
+configurations.all {
+    resolutionStrategy {
+        cachePolicy = { module, ageMillis ->
+            ageMillis < (module.id.group == "org.cachepolicy.foo" ? 0 : 86400000)
+        } as org.gradle.api.internal.artifacts.configurations.dynamicversion.CachePolicy
+    }
+}

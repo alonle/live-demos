@@ -1,0 +1,18 @@
+apply plugin: plugin.DestinationPlugin
+
+task zip1(type: Zip) {
+    from "some.txt"
+    baseName name
+}
+
+task zip2(type: Zip) {
+    from "some2.txt"
+    baseName name
+}
+
+destination {
+  path = "$buildDir/custom-zips"
+}
+
+task zips(dependsOn: tasks.withType(Zip))
+

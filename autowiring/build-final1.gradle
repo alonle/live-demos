@@ -1,0 +1,22 @@
+outputClassesDir = files("build/classes/test") {
+    builtBy 'compileTests'
+}
+
+
+task compileTests << {
+    // do something
+}
+
+task test(type: Test) {
+    classpath = outputClassesDir
+}
+
+task testJar(type: Jar) {
+    archiveName = 'tests.jar'
+    from outputClassesDir
+}
+
+
+
+
+

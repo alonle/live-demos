@@ -1,0 +1,13 @@
+subprojects {
+  apply plugin: 'java'
+  apply from: 'simple.gradle'
+}
+
+project (':plugin') {
+  dependencies {
+    compile gradleApi()
+    compile localGroovy()
+  }
+}
+
+childrenDependOnMe()

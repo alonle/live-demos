@@ -1,0 +1,14 @@
+apply plugin: "java"
+apply plugin: "maven"
+
+archivesBaseName = "baz"
+version = "3"
+group = "org.conflictresolution"
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      repository(url: "file:///Users/${System.getProperty("user.name")}/Sites/mavenrepo")
+    }
+  }
+}

@@ -1,0 +1,8 @@
+buildscript {
+  dependencies {
+    classpath fileTree(dir: 'lib',
+                       include: '*.jar')
+  }
+}
+
+apply plugin: 'simple'

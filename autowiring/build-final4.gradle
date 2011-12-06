@@ -1,0 +1,31 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile "junit:junit:4.9"
+}
+
+task testJar(type: Jar) {
+    archiveName = 'tests.jar'
+    from sourceSets.test.output
+}
+
+task analyzeTestJar(dependsOn: testJar) {
+    doFirst {
+        println "Size: ${testJar.archivePath.size()}"
+        exec {
+            commandLine "unzip", "-t", testJar.archivePath
+        }
+    }
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,21 @@
+repositories {
+    mavenRepo urls: 'http://gradle.artifactoryonline.com/gradle/demo'
+}
+
+configurations {
+    spring
+}
+
+dependencies {
+    spring group: 'com.mycomp.spring', name: 'rod', version: '1.0', ext: 'jpg'
+}
+
+
+allSpringJars = tasks.withType(Jar).matching { jar -> jar.archiveName.contains('spring')}
+allSpringJars.allTasks { task ->
+    task.metaInf {
+        from configurations.spring
+    }
+}
+
+task springJars(dependsOn: allSpringJars)
