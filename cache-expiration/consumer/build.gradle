@@ -21,8 +21,8 @@ dependencies {
 
 configurations.all {
     resolutionStrategy {
-        cacheChangingModulesFor 0, 'seconds'
-        cacheDynamicVersionsFor 0, 'hours'
+        cacheChangingModulesFor 1000, 'seconds'
+        cacheDynamicVersionsFor 24, 'hours'
     }
 }
 

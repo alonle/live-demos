@@ -5,15 +5,8 @@ repositories {
 }
 
 dependencies {
-  compile "org.conflictresolution.foo:foo:1.0", "org.conflictresolution.bar:bar:1.0"
+  compile "org.conflictresolution:foo:1.0", "org.conflictresolution:bar:1.0"
 }
-
-configurations.all {
-  resolutionStrategy {
-    force 'org.conflictresolution:baz:3'
-  }
-}
-
 
 task show << {
     configurations.compile.each {

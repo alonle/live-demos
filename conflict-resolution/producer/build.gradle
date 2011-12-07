@@ -1,34 +1,83 @@
 subprojects {
-  apply plugin: "java"
-  apply plugin: "maven"
+    apply plugin: "java"
+    apply plugin: "maven"
 
-  version = "1.0"
+    version = "1.0"
 
-  repositories {
-    mavenRepo url: "file:///Users/${System.getProperty("user.name")}/Sites/mavenrepo"
-  }
-
-  uploadArchives {
     repositories {
-      mavenDeployer {
-        repository(url: "file:///Users/${System.getProperty("user.name")}/Sites/mavenrepo")
-      }
+        mavenRepo url: "file:///Users/${System.getProperty("user.name")}/Sites/mavenrepo"
     }
-  }
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                repository(url: "file:///Users/${System.getProperty("user.name")}/Sites/mavenrepo")
+            }
+        }
+    }
 }
 
-project("foo") {
-  group = "org.conflictresolution.foo"
 
-  dependencies {
-    compile "org.conflictresolution:baz:1"
-  }
+project("foo") {
+    group = "org.conflictresolution"
+
+    dependencies {
+        compile project(':baz-1')
+    }
+    uploadArchives {
+        repositories.mavenDeployer {
+            pom.whenConfigured { pom ->
+                baz = pom.dependencies.find {dep -> dep.artifactId == 'baz-1' }
+                baz.artifactId = 'baz'
+                baz.version = '1'
+            }
+        }
+    }
 }
 
 project("bar") {
-  group = "org.conflictresolution.bar"
+    group = "org.conflictresolution"
 
-  dependencies {
-    compile "org.conflictresolution:baz:2"
-  }
+    dependencies {
+        compile project(':baz-2')
+    }
+    uploadArchives {
+        repositories.mavenDeployer {
+            pom.whenConfigured { pom ->
+                baz = pom.dependencies.find {dep -> dep.artifactId == 'baz-2' }
+                baz.artifactId = 'baz'
+                baz.version = '2'
+            }
+        }
+    }
+}
+
+project(":baz-1") {
+    archivesBaseName = "baz"
+    version = "1"
+    group = "org.conflictresolution"
+    uploadArchives {
+        repositories.mavenDeployer {
+            pom.version = '1'
+            pom.artifactId = 'baz'
+        }
+    }
+}
+
+project(":baz-2") {
+    archivesBaseName = "baz"
+    version = "2"
+    group = "org.conflictresolution"
+    uploadArchives {
+        repositories.mavenDeployer {
+            pom.version = '2'
+            pom.artifactId = 'baz'
+        }
+    }
+}
+
+project(":baz-3") {
+    archivesBaseName = "baz"
+    version = "3"
+    group = "org.conflictresolution"
 }

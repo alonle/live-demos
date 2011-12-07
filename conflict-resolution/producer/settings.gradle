@@ -1,1 +1,1 @@
-include "foo", "bar"
+include "foo", "bar", "baz-1", "baz-2", "baz-3"
