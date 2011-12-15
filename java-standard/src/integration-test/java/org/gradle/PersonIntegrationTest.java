@@ -14,8 +14,8 @@ public class PersonIntegrationTest {
         List list = new GrowthList();
 
         // check Jar exists
-        File jarFile = new File(System.getProperty("jar.path"));
-        assertTrue(jarFile.isFile());
+        //File jarFile = new File(System.getProperty("jar.path"));
+        //assertTrue(jarFile.isFile());
 
 //        Person person = PersonTestFixture.create("Larry");
 //        assertEquals("Larry", person.getName());

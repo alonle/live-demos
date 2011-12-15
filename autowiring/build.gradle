@@ -18,7 +18,7 @@ task analyzeTestJar(type: AnalyzeJar) {
 }
 
 task copy(type:Copy) {
-    from testJar
+    from testJar.outputs.files
     into 'build/myJars'
 }
 
