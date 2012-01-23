@@ -1,8 +1,10 @@
+import java.io.File;
+
 apply plugin: 'java'
 
 version = '1.0'
 
-sourceCompatibility = '1.6'
+sourceCompatibility = '1.5'
 
 repositories {
     mavenCentral()
@@ -10,5 +12,43 @@ repositories {
 
 dependencies {
     compile 'commons-collections:commons-collections:3.2.1'
-    testCompile group: 'junit', name: 'junit', version: '4.7'
+    testCompile group: 'junit', name: 'junit', version: '4.9'
+}
+
+task generateMountainFiles(type: ConvertMountainXml) {
+	outputDir = "$buildDir/mountains" as File
+	xmlFile = file("src/mountains.xml")
+	separator = ";"
+}
+
+gradle.taskGraph.whenReady { taskGraph ->
+	if (taskGraph.hasTask('buildDev')) {
+		jar.name = "dev"
+	}
+}
+
+class ConvertMountainXml extends DefaultTask {
+	@InputFile
+	File xmlFile
+
+	@Input
+	String separator
+
+	@OutputDirectory
+	File outputDir
+	
+	ConvertMountainXml() {
+		outputs.upToDateWhen {
+			
+		}
+	}
+
+	@TaskAction
+	public void generate() {
+		def mountains = new XmlSlurper().parse(xmlFile)
+		mountains.mountain.each { mountain ->
+			def mountainFile = new File(outputDir, mountain.name.text() + ".txt")
+			mountainFile.text = "feet$separator${mountain.height.text()}"
+		}
+	}
 }
