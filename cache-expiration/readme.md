@@ -6,7 +6,8 @@ Three artifacts are published:
 
 * bar (always a version with a new timestamp.)
 * foo (maven snapshot.)
-* zoo (always the same version, but with different content)
+* moo (always the same version, but with different content. The sha1 is published.)
+* zoo (always the same version, but with different content. The sha1 is not published.)
 
 ## The Consumer Project
 
