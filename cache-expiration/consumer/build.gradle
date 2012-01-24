@@ -17,6 +17,7 @@ dependencies {
   compile("org.cachepolicy.zoo:zoo:1.0") {
     changing = true
   }
+  compile("org.cachepolicy.moo:moo:1.0")
 }
 
 configurations.all {

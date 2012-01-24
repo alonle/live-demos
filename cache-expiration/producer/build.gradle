@@ -49,7 +49,27 @@ project("zoo") {
   }
   jar {
       manifest {
-          timestamp: "" + System.currentTimeMillis()
+          attributes timestamp: "" + System.currentTimeMillis()
+      }
+  }
+}
+
+project("moo") {
+  apply plugin: 'maven'
+  group = "org.cachepolicy.moo"
+  version = "1.0"
+  uploadArchives {
+    uploadArchives {
+	  repositories {
+	    mavenDeployer {
+	      repository(url: mavenRepoUrl)
+	    }
+	  }
+	}
+  }
+  jar {
+      manifest {
+          attributes timestamp: "" + System.currentTimeMillis()
       }
   }
 }
