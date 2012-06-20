@@ -2,14 +2,11 @@ import groovy.text.SimpleTemplateEngine
 import groovy.text.Template
 import groovy.text.TemplateEngine
 
-clean {
-    delete 'src/test'
-}
-
 task createTests(type: CreateTests) {
     template = file("src/templates/test.java")
     packages = 11
     tests = 21
+    out = new File("src/test/main")
 }
 
 class CreateTests extends DefaultTask {
@@ -23,7 +20,7 @@ class CreateTests extends DefaultTask {
     int tests
 
     @OutputDirectory
-    File out = new File("src/test/groovy")
+    File out
 
     @TaskAction
     def create() {
