@@ -23,7 +23,9 @@ test {
     }
     afterSuite { descr, result ->
         if (!descr.parent) {
-            file("$buildDir/longrunners").text = longRunners.join('\n')
+            def out = file("$buildDir/longrunners.txt")
+            logger.lifecycle("Writing long running tests into '$out'.")
+            out.text = "Long running tests:\n" + longRunners.join('\n')
         }
     }
 }
