@@ -2,8 +2,8 @@ Preparation
 
 1. clone git://github.com/SpringSource/spring-integration.git
 1. download eclipse for java developers
-1.1. install gradle plugin (http://static.springsource.org/sts/docs/2.7.0.M1/reference/html/gradle/installation.html) 
-1.1. install groovy plugin (http://groovy.codehaus.org/Eclipse+Plugin).
+1. install gradle plugin (http://static.springsource.org/sts/docs/2.7.0.M1/reference/html/gradle/installation.html) 
+1. install groovy plugin (http://groovy.codehaus.org/Eclipse+Plugin).
 
 Demo
 
