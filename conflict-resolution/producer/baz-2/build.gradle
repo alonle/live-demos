@@ -3,7 +3,6 @@ apply plugin: "maven"
 
 archivesBaseName = "baz"
 version = "2"
-group = "org.conflictresolution"
 
 uploadArchives {
   repositories {

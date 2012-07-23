@@ -19,7 +19,8 @@ subprojects {
 
 
 project("foo") {
-    group = "org.conflictresolution"
+    group = "org.demo"
+    archivesBaseName = "summer-app"
 
     dependencies {
         compile project(':baz-1')
@@ -27,16 +28,17 @@ project("foo") {
     uploadArchives {
         repositories.mavenDeployer {
             pom.whenConfigured { pom ->
-                baz = pom.dependencies.find {dep -> dep.artifactId == 'baz-1' }
-                baz.artifactId = 'baz'
-                baz.version = '1'
+                def baz = pom.dependencies.find {dep -> dep.artifactId == 'baz-1' }
+                baz.artifactId = 'some-lib'
+                baz.version = '1.0'
             }
         }
     }
 }
 
 project("bar") {
-    group = "org.conflictresolution"
+    group = "org.demo"
+    archivesBaseName = "winter-app"
 
     dependencies {
         compile project(':baz-2')
@@ -44,40 +46,40 @@ project("bar") {
     uploadArchives {
         repositories.mavenDeployer {
             pom.whenConfigured { pom ->
-                baz = pom.dependencies.find {dep -> dep.artifactId == 'baz-2' }
-                baz.artifactId = 'baz'
-                baz.version = '2'
+                def baz = pom.dependencies.find {dep -> dep.artifactId == 'baz-2' }
+                baz.artifactId = 'some-lib'
+                baz.version = '2.0'
             }
         }
     }
 }
 
 project(":baz-1") {
-    archivesBaseName = "baz"
-    version = "1"
-    group = "org.conflictresolution"
+    archivesBaseName = "some-lib"
+    version = "1.0"
+    group = "org.demo"
     uploadArchives {
         repositories.mavenDeployer {
-            pom.version = '1'
-            pom.artifactId = 'baz'
+            pom.version = '1.0'
+            pom.artifactId = 'some-lib'
         }
     }
 }
 
 project(":baz-2") {
-    archivesBaseName = "baz"
-    version = "2"
-    group = "org.conflictresolution"
+    archivesBaseName = "some-lib"
+    version = "2.0"
+    group = "org.demo"
     uploadArchives {
         repositories.mavenDeployer {
-            pom.version = '2'
-            pom.artifactId = 'baz'
+            pom.version = '2.0'
+            pom.artifactId = 'some-lib'
         }
     }
 }
 
 project(":baz-3") {
-    archivesBaseName = "baz"
-    version = "3"
-    group = "org.conflictresolution"
+    archivesBaseName = "some-lib"
+    version = "3.0"
+    group = "org.demo"
 }

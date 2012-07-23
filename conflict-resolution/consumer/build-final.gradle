@@ -1,22 +1,23 @@
-apply plugin: "java"
-
 repositories {
   mavenRepo url: "file:///Users/${System.getProperty("user.name")}/Sites/mavenrepo"
 }
 
+configurations {
+  summer
+  winter  
+  seasons
+}
+
 dependencies {
-  compile "org.conflictresolution.foo:foo:1.0", "org.conflictresolution.bar:bar:1.0"
+  summer 	"org.demo:summer-app:1.0"
+  winter 	"org.demo:winter-app:1.0"
+  
+  seasons   "org.demo:summer-app:1.0", "org.demo:winter-app:1.0" 
 }
 
 configurations.all {
   resolutionStrategy {
-    force 'org.conflictresolution:baz:1'
     failOnVersionConflict()
+    force 'org.demo:some-lib:1.0'
   }
-}
-
-task show << {
-    configurations.compile.each {
-      println it
-    }
 }
