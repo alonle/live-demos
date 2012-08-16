@@ -1,1 +1,1 @@
-include "foo", "bar", "baz-1", "baz-2", "baz-3"
+include "summer-app", "winter-app", "somelib-1", "somelib-2", "somelib-3"

@@ -18,67 +18,35 @@ subprojects {
 }
 
 
-project("foo") {
+project("summer-app") {
     group = "org.demo"
-    archivesBaseName = "summer-app"
 
     dependencies {
-        compile project(':baz-1')
-    }
-    uploadArchives {
-        repositories.mavenDeployer {
-            pom.whenConfigured { pom ->
-                def baz = pom.dependencies.find {dep -> dep.artifactId == 'baz-1' }
-                baz.artifactId = 'some-lib'
-                baz.version = '1.0'
-            }
-        }
+        compile project(':somelib-1')
     }
 }
 
-project("bar") {
+project("winter-app") {
     group = "org.demo"
-    archivesBaseName = "winter-app"
 
     dependencies {
-        compile project(':baz-2')
-    }
-    uploadArchives {
-        repositories.mavenDeployer {
-            pom.whenConfigured { pom ->
-                def baz = pom.dependencies.find {dep -> dep.artifactId == 'baz-2' }
-                baz.artifactId = 'some-lib'
-                baz.version = '2.0'
-            }
-        }
+        compile project(':somelib-2')
     }
 }
 
-project(":baz-1") {
+project(":somelib-1") {
     archivesBaseName = "some-lib"
     version = "1.0"
     group = "org.demo"
-    uploadArchives {
-        repositories.mavenDeployer {
-            pom.version = '1.0'
-            pom.artifactId = 'some-lib'
-        }
-    }
 }
 
-project(":baz-2") {
+project(":somelib-2") {
     archivesBaseName = "some-lib"
     version = "2.0"
     group = "org.demo"
-    uploadArchives {
-        repositories.mavenDeployer {
-            pom.version = '2.0'
-            pom.artifactId = 'some-lib'
-        }
-    }
 }
 
-project(":baz-3") {
+project(":somelib-3") {
     archivesBaseName = "some-lib"
     version = "3.0"
     group = "org.demo"
