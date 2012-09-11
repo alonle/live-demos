@@ -54,17 +54,16 @@ dependencies {
 
 def allSpringJars = tasks.withType(Jar).matching { task -> task.archiveName.contains('spring') }
 
-allSpringJars.allTasks { task ->
-    configure(task) {
-        metaInf {
-            from configurations.spring
-        }
-        doLast {
-            ant.checksum(file: archivePath, todir: archivePath.parentFile)
-        }
-    }
+allSpringJars.all { 
+	metaInf {
+		from configurations.spring
+	}
+	doLast {
+		ant.checksum(file: archivePath, todir: archivePath.parentFile)
+	}
 }
 
 task springJars(dependsOn: allSpringJars)
+
 
 

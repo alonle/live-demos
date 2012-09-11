@@ -38,5 +38,3 @@ task springMessagingJar(type: Jar) {
 }
 
 apply from: 'http://github.com/hansd/huglins/raw/master/spring-rule.gradle'
-
-

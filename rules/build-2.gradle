@@ -19,19 +19,19 @@ jar {
 
 task springDbJar(type: Jar) {
     appendix = 'spring-db'
-    from sourceSets.main.classes
+    from sourceSets.main.output
     include 'com/mycomp/foo/spring/db/**'
 }
 
 task springCoreJar(type: Jar) {
     appendix = 'spring-core'
-    from sourceSets.main.classes
+    from sourceSets.main.output
     include 'com/mycomp/foo/spring/core/**'
 }
 
 task springMessagingJar(type: Jar) {
     appendix = 'spring-messaging'
-    from sourceSets.main.classes
+    from sourceSets.main.output
     include 'com/mycomp/foo/spring/messaging/**'
 }
 

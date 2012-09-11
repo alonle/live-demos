@@ -37,14 +37,12 @@ task springMessagingJar(type: Jar) {
 	include 'com/mycomp/foo/spring/messaging/**'
 }
 
-tasks.withType(Jar).matching {
-	jar -> jar.archiveName.contains('spring') }.allTasks { task ->
-		metaInf {
-			from 'src/icons/rod.jpg'
-		}
-		doLast {
-			ant.checksum(file: archivePath, todir: archivePath.parentFile)
-		}
+tasks.withType(Jar).matching { jar -> jar.archiveName.contains('spring') }.all { 
+	metaInf {
+		from 'src/icons/rod.jpg'
+	}
+	doLast {
+		ant.checksum(file: archivePath, todir: archivePath.parentFile)
 	}
 }
 

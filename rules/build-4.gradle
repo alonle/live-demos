@@ -39,15 +39,13 @@ task springMessagingJar(type: Jar) {
 
 def allSpringJars = tasks.withType(Jar).matching { task -> task.archiveName.contains('spring') }
 
-allSpringJars.allTasks { task ->
-    configure(task) {
-        metaInf {
-            from 'src/icons/rod.jpg'
-        }
-        doLast {
-            ant.checksum(file: archivePath, todir: archivePath.parentFile)
-        }
-    }
+allSpringJars.all { 
+	metaInf {
+		from 'src/icons/rod.jpg'
+	}
+	doLast {
+		ant.checksum(file: archivePath, todir: archivePath.parentFile)
+	}
 }
 
 task springJars(dependsOn: allSpringJars)
