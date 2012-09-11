@@ -1,13 +1,28 @@
+import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.DefaultHandler;
+import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.server.handler.ResourceHandler;
+
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath "org.eclipse.jetty:jetty-server:8.1.7.v20120910"
+	}
+}
+
 apply plugin: "java"
 
 repositories {
   ivy {
     name "ivy"
-    url "http://localhost/~${System.getProperty("user.name")}/ivyrepo"
+    url "http://localhost:8080/ivyrepo"
   }
   maven {
     name "maven"
-    url "http://localhost/~${System.getProperty("user.name")}/mavenrepo"
+    url "http://localhost:8080/mavenrepo"
   }
 }
 
@@ -22,11 +37,27 @@ dependencies {
 
 configurations.all {
     resolutionStrategy {
-        cacheChangingModulesFor 1000, 'seconds'
-        cacheDynamicVersionsFor 24, 'hours'
+//        cacheChangingModulesFor 1000, 'seconds'
+//        cacheDynamicVersionsFor 24, 'hours'
     }
 }
 
-task show << {
-    configurations.compile.each { println it }
+task startRepo(type: JettyStart) 
+
+class JettyStart extends DefaultTask {
+	@TaskAction
+	def start() {
+		 Server server = new Server(8080);
+		 ResourceHandler resource_handler = new ResourceHandler();
+		 resource_handler.setDirectoriesListed(true);
+		 resource_handler.setResourceBase(project.projectDir.parent + "/producer/build");
+		 
+		 HandlerList handlers = new HandlerList();
+		 handlers.setHandlers([resource_handler, new DefaultHandler()] as Handler[] );
+		 server.setHandler(handlers);
+		 
+		 server.start();
+	}
 }
+
+

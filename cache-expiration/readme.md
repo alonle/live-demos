@@ -1,6 +1,6 @@
 ## The Producer Project
 
-The producer project is a multi-project build that publishes to a local http repository. The default location of the http repository is the user's *Sites* directory. To make this work for consumption, you need to enable web sharing in your sharing preferences. 
+The producer project is a multi-project build that publishes to its build directory. As caching is not used (yet) for filesystem repositories, to demonstrate the caching in the consumer project Gradle needs to access the repository via http. To make this work you need to run once the startRepo task in the consumer project which will start a Jetty http server that lives in the daemon JVM. You need to enable the daemon to make this work. If you kill the daemon, the webserver will also stop running.
 
 Three artifacts are published:
 

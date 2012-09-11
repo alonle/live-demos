@@ -2,13 +2,8 @@ subprojects {
   apply plugin: "java"
 }
 
-ivyRepoUrl = "file:///Users/${System.getProperty("user.name")}/Sites/ivyrepo"
-mavenRepoUrl = "file:///Users/${System.getProperty("user.name")}/Sites/mavenrepo"
-
-task deleteRepos(type: Delete) {
-  decription = 'Deletes the Ivy and Maven used in this demo.'
-  delete ivyRepoUrl, mavenRepoUrl
-}
+ivyRepoUrl = "file:///$buildDir/ivyrepo"
+mavenRepoUrl = "file:///$buildDir/mavenrepo"
 
 project("foo") {
   group = "org.cachepolicy.foo"
