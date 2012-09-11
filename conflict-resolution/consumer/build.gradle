@@ -1,5 +1,5 @@
 repositories {
-  mavenRepo url: "file:///Users/${System.getProperty("user.name")}/Sites/mavenrepo"
+  mavenRepo url: "file:///" + project.projectDir.parent + "/producer/build/repo"
 }
 
 configurations {

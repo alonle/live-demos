@@ -4,19 +4,14 @@ subprojects {
 
     version = "1.0"
 
-    repositories {
-        mavenRepo url: "file:///Users/${System.getProperty("user.name")}/Sites/mavenrepo"
-    }
-
     uploadArchives {
         repositories {
             mavenDeployer {
-                repository(url: "file:///Users/${System.getProperty("user.name")}/Sites/mavenrepo")
+                repository(url: "file:///" + rootProject.buildDir + "/repo")
             }
         }
     }
 }
-
 
 project("summer-app") {
     group = "org.demo"
